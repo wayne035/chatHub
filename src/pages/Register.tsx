@@ -27,7 +27,7 @@ export default function Register() {
     e.preventDefault()
     const { email, username, password,confirmPassWord} = data;
     if(validation(password,confirmPassWord)){
-      await axios.post('http://localhost:8000/api/auth',{
+      await axios.post('http://localhost:8000/api/auth/register',{
         username,email,password
       }).then(res=>{
         if(res.data.status === 'success'){
