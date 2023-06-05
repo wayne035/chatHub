@@ -1,6 +1,14 @@
+import {Routes,Route} from 'react-router-dom'
+import Register from './pages/Register'
+import Login from './pages/Login'
+import Chat from './pages/Chat'
+
 export default function App() {
   return (
-    <h1 className="text-[#0c0]">react+ts
-    </h1>
+    <Routes>
+      <Route path='/' element={<Chat/>}/>
+      <Route path='/Login' element={<Login/>}/>
+      <Route path='/register' element={<Register/>}/>
+    </Routes>
   )
 }
