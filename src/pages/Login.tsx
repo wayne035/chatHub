@@ -19,7 +19,7 @@ export default function Login() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const submit = async(e: { preventDefault: () => void })=>{
+  const submit = async(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     const { username, password} = data;
     if(validation(password,username)){
@@ -33,7 +33,7 @@ export default function Login() {
         if(res.data.status === 'fail'){
           alert('登入失敗')
         }
-      }).catch(err => setError(err.message));
+      }).catch(err => setError(err.response.data.message));
     }  
   }
 
