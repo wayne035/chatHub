@@ -16,7 +16,6 @@ export default function Register() {
     password: "",
     confirmPassWord: "",
   })
-  const [error, setError] = useState<string>('')
   const navigate = useNavigate()
   axios.defaults.withCredentials = true;
   const ChangeValue = (e: { target: { name: any; value: any; }; }) => {
@@ -31,10 +30,12 @@ export default function Register() {
         username,email,password
       }).then(res=>{
         if(res.data.status === 'success'){
-          alert('創建成功')
-          navigate('/')
+          alert(res.data.message)
+          navigate('/login')
+        }else{
+          alert(res.data.message)
         }
-      }).catch(err => setError(err.response.data.message));
+      }).catch(err => console.log(err.message));
     }  
   }
 

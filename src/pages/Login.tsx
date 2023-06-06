@@ -12,10 +12,12 @@ export default function Login() {
     username: "",
     password: "",
   })
-  const [error, setError] = useState<string>('')
+  
   const navigate = useNavigate()
+
   axios.defaults.withCredentials = true;
-  const ChangeValue = (e: { target: { name: any; value: any; }; }) => {
+
+  const ChangeValue = (e: { target: { name: string; value: string } }) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
@@ -27,13 +29,13 @@ export default function Login() {
         username,password
       }).then(res=>{
         if(res.data.status === 'success'){
-          alert('登入成功')
-          navigate('/')
+          alert(res.data.message)
+          navigate('/',)
+
+        }else{
+          alert(res.data.message)
         }
-        if(res.data.status === 'fail'){
-          alert('登入失敗')
-        }
-      }).catch(err => setError(err.response.data.message));
+      }).catch(err => console.log(err.message));
     }  
   }
 
