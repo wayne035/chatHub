@@ -1,11 +1,10 @@
-import React from 'react'
 
 interface Self{
-  self:string,
+  self:any,
 }
 
 export default function Welcome({self}:Self) {
   return (
-    <div>Welcome  {self}</div>
+    <div>Welcome  {self['name']}</div>
   )
 }

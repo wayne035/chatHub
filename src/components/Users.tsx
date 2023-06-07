@@ -1,7 +1,7 @@
 import {useState} from 'react'
 interface Users{
-    users: object[],
-    self:string,
+    users:any,
+    self:any,
     changeChat:(v:User)=>void
 }
 interface User{
@@ -22,13 +22,13 @@ export default function Users({users,self,changeChat}:Users) {
           return (
             <div key={user._id} 
                  onClick={()=>changeCurrentChat(idx,user)}
-                 className={`bg-${idx === currentSelect ? '[#f00]':'[#fff]'}  text-[30px]`}
+                 className={`${idx === currentSelect ?'bg-[#f00]':'bg-[#fff]'}  text-[30px]`}
             >
               {user.username}
             </div>
           )
         })}
-        <h1 className='text-[#c0c]'>{self}</h1>
+        <h1 className='text-[#c0c]'>{self['name']}</h1>
     </div>
     
   )

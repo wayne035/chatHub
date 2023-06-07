@@ -8,7 +8,7 @@ import Logout from '../components/Logout'
 
 export default function Chat() {
   const [users,setUsers]=useState([])
-  const [self,setSelf]=useState('')
+  const [self,setSelf]=useState([])
   const [currentChat, setCurrentChat] = useState();
   const navigate = useNavigate()
 
@@ -26,7 +26,7 @@ export default function Chat() {
         navigate('/login')
       }else{
         setUsers(res.data['users'])
-        setSelf(res.data['self'])
+        setSelf(res.data['self'][0])
       }
     })
   },[])
@@ -36,7 +36,7 @@ export default function Chat() {
       <Users users={users} self={self} changeChat={chatChange}/>
       {currentChat === undefined ? 
         <Welcome self={self}/> : 
-        <Message currentChat={currentChat}/>
+        <Message currentChat={currentChat} self={self}/>
       }
     </>
   )
