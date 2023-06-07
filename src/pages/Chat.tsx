@@ -2,12 +2,20 @@ import { useState,useEffect } from 'react'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import Users from '../components/Users'
+import Welcome from '../components/Welcome'
+import Message from '../components/Message'
+import Logout from '../components/Logout'
 
 export default function Chat() {
-  const [isLogin,setIsLogin]=useState(false)
   const [users,setUsers]=useState([])
   const [self,setSelf]=useState('')
+  const [currentChat, setCurrentChat] = useState();
   const navigate = useNavigate()
+
+  const chatChange = (chat:any) => {
+    setCurrentChat(chat);
+  };
+
   axios.defaults.withCredentials = true;
 
   useEffect(()=>{
@@ -17,7 +25,6 @@ export default function Chat() {
         alert(res.data.message)
         navigate('/login')
       }else{
-        setIsLogin(true)
         setUsers(res.data['users'])
         setSelf(res.data['self'])
       }
@@ -25,9 +32,12 @@ export default function Chat() {
   },[])
   return (
     <>
-    { isLogin ? (
-      <Users users={users} self={self}/>
-    ) : null }
+      <Logout/>
+      <Users users={users} self={self} changeChat={chatChange}/>
+      {currentChat === undefined ? 
+        <Welcome self={self}/> : 
+        <Message currentChat={currentChat}/>
+      }
     </>
   )
 }
