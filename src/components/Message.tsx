@@ -3,10 +3,15 @@ import { v4 as uuidv4 } from 'uuid'
 import SendMessage from './SendMessage'
 import axios from 'axios'
 
+interface Message {
+  fromSelf: boolean;
+  message: string;
+}
+
 export default function Message({currentChat,self,socket}:any) {
-  const [messages, setMessages] = useState([]);
-  const scrollRef = useRef();
-  const [arrivalMsg,setArrivalMsg] = useState();
+  const [messages, setMessages] = useState<Message[]>([]);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [arrivalMsg,setArrivalMsg] = useState<Message>();
 
   useEffect(()=>{
     async function getMsg(){
@@ -22,7 +27,7 @@ export default function Message({currentChat,self,socket}:any) {
   },[currentChat])
 
 
-  const sendMessage = (msg:any)=>{
+  const sendMessage = (msg:string)=>{
 
     socket.current.emit('sendMsg',{
       from :self['id'],
@@ -40,10 +45,10 @@ export default function Message({currentChat,self,socket}:any) {
     msgs.push({fromSelf : true, message : msg})
     setMessages(msgs)
   }
-  console.log(messages)
+
   useEffect(()=>{
     if(socket.current){
-      socket.current.on('msgRecieve',(msg:any)=>{
+      socket.current.on('msgRecieve',(msg:string)=>{
         setArrivalMsg({ fromSelf: false, message: msg });
       })
     }

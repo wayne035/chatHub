@@ -18,7 +18,7 @@ export default function Register() {
   })
   const navigate = useNavigate()
   axios.defaults.withCredentials = true;
-  const ChangeValue = (e: { target: { name: any; value: any; }; }) => {
+  const ChangeValue = (e: { target: { name: string; value: string; }; }) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 

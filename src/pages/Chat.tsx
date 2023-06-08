@@ -1,22 +1,32 @@
-import { useState,useEffect,useRef } from 'react'
+import { useState,useEffect,useRef, SetStateAction } from 'react'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import Users from '../components/Users'
 import Welcome from '../components/Welcome'
 import Message from '../components/Message'
 import Logout from '../components/Logout'
-import {io} from 'socket.io-client'
+import {io,Socket} from 'socket.io-client'
+
+interface Users{
+  _id: string,
+  username: string,
+}
+
+interface Self{
+  name:string,
+  id:string,
+}
 
 export default function Chat() {
-  const [users,setUsers]=useState([])
-  const [self,setSelf]=useState([])
+  const [users,setUsers]=useState<Users[]>([{_id:'',username:''}])
+  const [self,setSelf]=useState<Self>({name:'',id:''})
   const [currentChat, setCurrentChat] = useState();
 
-  const socket= useRef()
+  const socket= useRef<Socket>()
 
   const navigate = useNavigate()
 
-  const chatChange = (chat:any) => {
+  const chatChange = (chat:SetStateAction<undefined>) => {
     setCurrentChat(chat);
   };
   

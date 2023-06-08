@@ -1,6 +1,6 @@
 
 interface Self{
-  self:any,
+  self:{name:string,id:string},
 }
 
 export default function Welcome({self}:Self) {

@@ -1,8 +1,8 @@
 import {useState} from 'react'
 interface Users{
-    users:any,
-    self:any,
-    changeChat:(v:User)=>void
+    users:User[] ,
+    self:{name:string,id:string},
+    changeChat:any
 }
 interface User{
     _id:string,
@@ -18,7 +18,7 @@ export default function Users({users,self,changeChat}:Users) {
 
   return (
     <div>
-        {(users as User[]).map((user,idx)=>{
+        {users.map((user,idx)=>{
           return (
             <div key={user._id} 
                  onClick={()=>changeCurrentChat(idx,user)}
