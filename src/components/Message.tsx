@@ -2,31 +2,51 @@ import {useState,useEffect,useRef } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import SendMessage from './SendMessage'
 import {addmsgAPI,getmsgAPI} from '../api'
+import {useSelf} from '../store/selfStore'
+import {useCurrentChatUser} from '../store/currentChatUserStore' 
 
 interface Message {
   fromSelf: boolean;
   message: string;
-  currentTime?:string;
+  currentTime:string;
 }
 
-export default function Message({currentChat,self,socket}:any) {
+export default function Message({socket}:any) {
+  const currentChatUser = useCurrentChatUser(s=>s.currentChatUser)
+  const self = useSelf(s=>s.self)
   const [messages, setMessages] = useState<Message[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [arrivalMsg,setArrivalMsg] = useState<Message>();
-
+//取得聊天資訊
   useEffect(()=>{
     async function getMsg(){
-      if(currentChat){
+      if(currentChatUser){
         const res = await getmsgAPI({
           from: self['id'],
-          to:currentChat._id,
+          to:currentChatUser._id,
         })
         setMessages(res.data)
       }
     }
     getMsg()
-  },[currentChat])
+  },[currentChatUser])
+//即時取得當前聊天使用者發送的message
+  useEffect(()=>{
+    if(socket.current){
+      socket.current.on('msgRecieve',(msg:string ,time:string)=>{
+        setArrivalMsg({ fromSelf: false, message: msg ,currentTime:time});
+      })
+    }
+  },[])
+//更新當前聊天使用者發送的message
+  useEffect(() => {
+    arrivalMsg && setMessages((prev) => [...prev, arrivalMsg]);
+  },[arrivalMsg]);
 
+//scroll置底
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const sendMessage = (msg:string)=>{
 
@@ -42,14 +62,14 @@ export default function Message({currentChat,self,socket}:any) {
 
     socket.current.emit('sendMsg',{
       from :self['id'],
-      to:currentChat._id,
+      to:currentChatUser?._id,
       msg,
       currentTime:currentTime(),
     })
 
     addmsgAPI({
       from :self['id'],
-      to:currentChat._id,
+      to:currentChatUser?._id,
       message:msg,
       currentTime:currentTime(),
     })
@@ -59,25 +79,9 @@ export default function Message({currentChat,self,socket}:any) {
     setMessages(msgs)
   }
 
-  useEffect(()=>{
-    if(socket.current){
-      socket.current.on('msgRecieve',(msg:string ,time:string)=>{
-        setArrivalMsg({ fromSelf: false, message: msg ,currentTime:time});
-      })
-    }
-  },[])
-
-  useEffect(() => {
-    arrivalMsg && setMessages((prev) => [...prev, arrivalMsg]);
-  },[arrivalMsg]);
-
-  useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
   return (
     <>
-      <div>{currentChat.username}</div>
+      <div>{currentChatUser?.username}</div>
       <div className='border-2 h-[500px] overflow-auto'>
       {
         messages.map(msg=>{

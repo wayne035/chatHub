@@ -2,10 +2,10 @@ import axios from 'axios'
 
 axios.defaults.withCredentials = true;
 
-export const host = 'http://localhost:8000'
+export const server = 'http://localhost:8000'
 
-const auth = host + '/api/auth'
-const userdata = host + '/api/userdata'
+const auth = server + '/api/auth'
+const userdata = server + '/api/userdata'
 
 //auth API
 export const loginAPI = (data:{}) => axios.post(auth + '/login',data)

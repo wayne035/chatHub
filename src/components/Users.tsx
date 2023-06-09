@@ -1,18 +1,23 @@
 import {useState} from 'react'
+import {useSelf} from '../store/selfStore'
+import {useUsers} from '../store/usersStore'
+
 interface Users{
-    users:User[] ,
-    self:{name:string,id:string},
-    changeChat:any
+    changeChat:(v:User)=>void
 }
+
 interface User{
     _id:string,
     username:string,
 }
-export default function Users({users,self,changeChat}:Users) {
+
+export default function Users({changeChat}:Users) {
   const [currentSelect, setCurrentSelect] = useState<number>();
+  const self = useSelf(s=>s.self)
+  const users = useUsers(s=>s.users)
 
   const changeCurrentChat = (idx: number, user: User) => {
-    setCurrentSelect(idx) //選取當前user背景變色
+    setCurrentSelect(idx) //取得當前選取哪個user
     changeChat(user)  //聊天室窗切換
   };
 
