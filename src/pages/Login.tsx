@@ -1,45 +1,37 @@
 import {useState} from 'react'
 import {Link,useNavigate} from 'react-router-dom'
 import {loginAPI} from '../api'
-
-interface Data{
-  username: string,
-  password: string,
-}
+import {LoginData,importLoginData} from '../interface.ts'
 
 export default function Login() {
-  const [data,setData] = useState<Data>({
-    username: "",
-    password: "",
-  })
-  
-  const navigate = useNavigate()
+  const [data,setData] = useState<LoginData>({username: "",password: ""});
+  const navigate = useNavigate();
 
-  const ChangeValue = (e: { target: { name: string; value: string } }) => {
+  const ChangeValue = (e:importLoginData) => {
     setData({ ...data, [e.target.name]: e.target.value });
-  };
+  }
 
   const submit = async(e:React.FormEvent<HTMLFormElement>)=>{
-    e.preventDefault()
+    e.preventDefault();
     const { username, password} = data;
     if(validation(password,username)){
       await loginAPI({
         username,password
       }).then(res=>{
         if(res.data.status === 'success'){
-          alert(res.data.message)
-          navigate('/')
+          alert(res.data.message);
+          navigate('/');
         }else{
-          alert(res.data.message)
+          alert(res.data.message);
         }
       }).catch(err => console.log(err.message));
     }  
   }
 
   const validation = (password: string ,username: string) =>{
-    if (username.length < 1) return alert('請輸入使用者名稱')
-    if (password.length < 1) return alert('請輸入使用者密碼')
-    return true
+    if (username.length < 1) return alert('請輸入使用者名稱');
+    if (password.length < 1) return alert('請輸入使用者密碼');
+    return true;
   }
 
   return (

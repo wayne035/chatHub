@@ -9,6 +9,7 @@ export default function App() {
       <Route path='/' element={<Chat/>}/>
       <Route path='/Login' element={<Login/>}/>
       <Route path='/register' element={<Register/>}/>
+      <Route path='*' element={<Chat/>}/>
     </Routes>
   )
 }

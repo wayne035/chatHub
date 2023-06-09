@@ -1,25 +1,16 @@
 import {useState} from 'react'
 import {useSelf} from '../store/selfStore'
 import {useUsers} from '../store/usersStore'
+import {ChangeChatUser,User} from '../interface.ts'
 
-interface Users{
-    changeChat:(v:User)=>void
-}
-
-interface User{
-    _id:string,
-    username:string,
-}
-
-export default function Users({changeChat}:Users) {
+export default function Users({changeChat}:ChangeChatUser) {
   const [currentSelect, setCurrentSelect] = useState<number>();
-  const self = useSelf(s=>s.self)
-  const users = useUsers(s=>s.users)
-
+  const self = useSelf(s=>s.self);
+  const users = useUsers(s=>s.users);
   const changeCurrentChat = (idx: number, user: User) => {
-    setCurrentSelect(idx) //取得當前選取哪個user
-    changeChat(user)  //聊天室窗切換
-  };
+    setCurrentSelect(idx); //取得當前選取哪個user
+    changeChat(user);  //聊天室窗切換
+  }
 
   return (
     <div>

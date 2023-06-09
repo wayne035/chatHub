@@ -1,39 +1,33 @@
 import {useState} from 'react'
 import {Link,useNavigate} from 'react-router-dom'
 import {registerAPI} from '../api'
-
-interface Data{
-  username: string,
-  email: string,
-  password: string,
-  confirmPassWord: string,
-}
+import {registerData,importRegisterData} from '../interface.ts'
 
 export default function Register() {
-  const [data,setData] = useState<Data>({
+  const [data,setData] = useState<registerData>({
     username: "",
     email: "",
     password: "",
     confirmPassWord: "",
-  })
-  const navigate = useNavigate()
+  });
+  const navigate = useNavigate();
 
-  const ChangeValue = (e: { target: { name: string; value: string; }; }) => {
+  const ChangeValue = (e: importRegisterData ) => {
     setData({ ...data, [e.target.name]: e.target.value });
-  };
+  }
 
   const submit = async(e: { preventDefault: () => void })=>{
-    e.preventDefault()
+    e.preventDefault();
     const { email, username, password,confirmPassWord} = data;
     if(validation(password,confirmPassWord)){
       await registerAPI({
         username,email,password
       }).then(res=>{
         if(res.data.status === 'success'){
-          alert(res.data.message)
-          navigate('/login')
+          alert(res.data.message);
+          navigate('/login');
         }else{
-          alert(res.data.message)
+          alert(res.data.message);
         }
       }).catch(err => console.log(err.message));
     }  

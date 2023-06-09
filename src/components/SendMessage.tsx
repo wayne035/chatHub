@@ -1,9 +1,6 @@
 import {useState} from 'react'
 import Picker from 'emoji-picker-react';
-
-interface SendMessageProps {
-    sendMessage: (msg: string) => void;
-}
+import {SendMessageProps} from '../interface.ts'
 
 export default function sendMessage({sendMessage}:SendMessageProps) {
   const [msg, setMsg] = useState('');
@@ -11,13 +8,13 @@ export default function sendMessage({sendMessage}:SendMessageProps) {
 
   const EmojiPickerToggle = () => {
     setShowEmojiPicker(v=>!v);
-  };
+  }
 
   const EmojiClick = (e:{ emoji: string; }) => {
     let message = msg;
     message += e.emoji;
     setMsg(message);
-  };
+  }
 
   const sendChat = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,9 +22,9 @@ export default function sendMessage({sendMessage}:SendMessageProps) {
       sendMessage(msg);
       setMsg("");
     }else{
-        alert('請輸入訊息...')
+        alert('請輸入訊息...');
     }
-  };
+  }
 
   return (
     <>

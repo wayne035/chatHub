@@ -11,17 +11,13 @@ import {useUsers} from '../store/usersStore'
 import {useCurrentChatUser} from '../store/currentChatUserStore' 
 
 export default function Chat() {
-  const self = useSelf(s=>s.self)
-  const {getSelf} = useSelf()
-  const {getUsers} = useUsers()
-  const currentChatUser = useCurrentChatUser(s=>s.currentChatUser)
-  const {setCurrentChatUser} = useCurrentChatUser()
-  const socket= useRef<Socket>()
-  const navigate = useNavigate()
-
-  const chatChange = (chat:{_id:string,username:string}) => {
-    setCurrentChatUser(chat);
-  };
+  const self = useSelf(s=>s.self);
+  const {getSelf} = useSelf();
+  const {getUsers} = useUsers();
+  const currentChatUser = useCurrentChatUser(s=>s.currentChatUser);
+  const {setCurrentChatUser} = useCurrentChatUser();
+  const socket= useRef<Socket>();
+  const navigate = useNavigate();
 
   useEffect(()=>{
     getUsersAPI({ withCredentials: true })
@@ -32,7 +28,7 @@ export default function Chat() {
         getUsers(res.data['users'])
         getSelf(res.data['self'][0])
       }
-    })
+    }).catch(err => console.log(err.message));
   },[])
 //與 socket server 連線
   useEffect(()=>{
@@ -41,6 +37,10 @@ export default function Chat() {
       socket.current.emit('addUser',self['id'])
     }
   },[self])
+
+  const chatChange = (chat:{_id:string,username:string}) => {
+    setCurrentChatUser(chat);
+  }
 
   return (
     <>
