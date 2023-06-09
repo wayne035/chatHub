@@ -1,7 +1,7 @@
 import {useState,useEffect,useRef } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import SendMessage from './SendMessage'
-import axios from 'axios'
+import {addmsgAPI,getmsgAPI} from '../api'
 
 interface Message {
   fromSelf: boolean;
@@ -17,7 +17,7 @@ export default function Message({currentChat,self,socket}:any) {
   useEffect(()=>{
     async function getMsg(){
       if(currentChat){
-        const res = await axios.post('http://localhost:8000/api/userdata/getmsg',{
+        const res = await getmsgAPI({
           from: self['id'],
           to:currentChat._id,
         })
@@ -47,7 +47,7 @@ export default function Message({currentChat,self,socket}:any) {
       currentTime:currentTime(),
     })
 
-    axios.post('http://localhost:8000/api/userdata/addmsg',{
+    addmsgAPI({
       from :self['id'],
       to:currentChat._id,
       message:msg,
@@ -61,8 +61,8 @@ export default function Message({currentChat,self,socket}:any) {
 
   useEffect(()=>{
     if(socket.current){
-      socket.current.on('msgRecieve',(msg:string)=>{
-        setArrivalMsg({ fromSelf: false, message: msg });
+      socket.current.on('msgRecieve',(msg:string ,time:string)=>{
+        setArrivalMsg({ fromSelf: false, message: msg ,currentTime:time});
       })
     }
   },[])

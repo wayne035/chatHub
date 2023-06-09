@@ -1,6 +1,6 @@
 import { useState,useEffect,useRef, SetStateAction } from 'react'
 import {useNavigate} from 'react-router-dom'
-import axios from 'axios'
+import {host,getUsersAPI} from '../api'
 import Users from '../components/Users'
 import Welcome from '../components/Welcome'
 import Message from '../components/Message'
@@ -29,11 +29,9 @@ export default function Chat() {
   const chatChange = (chat:SetStateAction<undefined>) => {
     setCurrentChat(chat);
   };
-  
-  axios.defaults.withCredentials = true;
 
   useEffect(()=>{
-    axios.get('http://localhost:8000/api/userdata/all',{ withCredentials: true })
+    getUsersAPI({ withCredentials: true })
     .then(res=>{
       if(res.data.status === 'fail'){
         navigate('/login')
@@ -46,7 +44,7 @@ export default function Chat() {
 
   useEffect(()=>{
     if(self){
-      socket.current = io('http://localhost:8000');
+      socket.current = io(host);
       socket.current.emit('addUser',self['id'])
     }
   },[self])

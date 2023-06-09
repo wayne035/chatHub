@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {Link,useNavigate} from 'react-router-dom'
-import axios from 'axios'
+import {loginAPI} from '../api'
 
 interface Data{
   username: string,
@@ -15,8 +15,6 @@ export default function Login() {
   
   const navigate = useNavigate()
 
-  axios.defaults.withCredentials = true;
-
   const ChangeValue = (e: { target: { name: string; value: string } }) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -25,13 +23,12 @@ export default function Login() {
     e.preventDefault()
     const { username, password} = data;
     if(validation(password,username)){
-      await axios.post('http://localhost:8000/api/auth/login',{
+      await loginAPI({
         username,password
       }).then(res=>{
         if(res.data.status === 'success'){
           alert(res.data.message)
-          navigate('/',)
-
+          navigate('/')
         }else{
           alert(res.data.message)
         }

@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {Link,useNavigate} from 'react-router-dom'
-import axios from 'axios'
+import {registerAPI} from '../api'
 
 interface Data{
   username: string,
@@ -17,7 +17,7 @@ export default function Register() {
     confirmPassWord: "",
   })
   const navigate = useNavigate()
-  axios.defaults.withCredentials = true;
+
   const ChangeValue = (e: { target: { name: string; value: string; }; }) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -26,7 +26,7 @@ export default function Register() {
     e.preventDefault()
     const { email, username, password,confirmPassWord} = data;
     if(validation(password,confirmPassWord)){
-      await axios.post('http://localhost:8000/api/auth/register',{
+      await registerAPI({
         username,email,password
       }).then(res=>{
         if(res.data.status === 'success'){
