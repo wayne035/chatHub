@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {Link,useNavigate} from 'react-router-dom'
-import {loginAPI} from '../api'
+import {loginAPI} from '../API.ts'
 import {LoginData,importLoginData} from '../interface.ts'
 
 export default function Login() {
@@ -20,7 +20,7 @@ export default function Login() {
       }).then(res=>{
         if(res.data.status === 'success'){
           alert(res.data.message);
-          navigate('/');
+          navigate('/chat');
         }else{
           alert(res.data.message);
         }

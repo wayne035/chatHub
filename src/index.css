@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.circle{
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    animation: circle 1s infinite;
+}
+@keyframes circle {
+    0%{transform: rotate(0deg);box-shadow: 1px 5px 2px #e65c00}
+    50%{transform: rotate(180deg);box-shadow: 1px 5px 2px #00e686}
+    100%{transform: rotate(360deg);box-shadow: 1px 5px 2px #0049e6}
+}
+.circle::before{
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    box-shadow:  0 0 5px rgba(255,255,255,.3);
+}
+@keyframes text{
+    50%{color:#000}
+}
+@media (min-width:768px){
+    .circle{
+        width:500px;
+        height: 500px;
+    }
+}
+
+.emoji{
+    opacity: 0;
+    animation: emojiani 4s linear infinite;
+}
+@keyframes emojiani{
+    0%{transform: translateY(600px);}
+    25%{opacity: .6;}
+    70%{opacity: .8;}
+    100%{
+        transform: translateY(0px);
+        opacity: 0;
+    }
+}
+.emoji:nth-child(1){animation-delay: 2.2s;}
+.emoji:nth-child(2){animation-delay: .5s;}
+.emoji:nth-child(3){animation-delay: 2s;}
+.emoji:nth-child(4){animation-delay: 1.5s;}
+.emoji:nth-child(5){animation-delay: 2.8s;}
+.emoji:nth-child(6){animation-delay: 1.8s;}
+.emoji:nth-child(7){animation-delay: 3.1s;}

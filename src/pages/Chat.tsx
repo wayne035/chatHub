@@ -1,14 +1,15 @@
 import {useEffect,useRef} from 'react'
 import {useNavigate} from 'react-router-dom'
-import {server,getUsersAPI} from '../api'
+import {server,getUsersAPI} from '../API'
+import {io,Socket} from 'socket.io-client'
+import {useSelf} from '../store/selfStore'
+import {useUsers} from '../store/usersStore'
+import {useCurrentChatUser} from '../store/currentChatUserStore'
+import {User} from '../interface.ts' 
 import Users from '../components/Users'
 import Welcome from '../components/Welcome'
 import Message from '../components/Message'
 import Logout from '../components/Logout'
-import {io,Socket} from 'socket.io-client'
-import {useSelf} from '../store/selfStore'
-import {useUsers} from '../store/usersStore'
-import {useCurrentChatUser} from '../store/currentChatUserStore' 
 
 export default function Chat() {
   const self = useSelf(s=>s.self);
@@ -38,7 +39,7 @@ export default function Chat() {
     }
   },[self])
 
-  const chatChange = (chat:{_id:string,username:string}) => {
+  const chatChange = (chat:User) => {
     setCurrentChatUser(chat);
   }
 
@@ -46,10 +47,7 @@ export default function Chat() {
     <>
       <Logout/>
       <Users changeChat={chatChange}/>
-      {currentChatUser === undefined ? 
-        <Welcome /> : 
-        <Message currentChat={currentChatUser} socket={socket}/>
-      }
+      {currentChatUser === undefined ? <Welcome /> : <Message socket={socket}/>}
     </>
   )
 }

@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {Link,useNavigate} from 'react-router-dom'
-import {registerAPI} from '../api'
+import {registerAPI} from '../API.ts'
 import {registerData,importRegisterData} from '../interface.ts'
 
 export default function Register() {

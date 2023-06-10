@@ -1,7 +1,7 @@
 import {useState,useEffect,useRef } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import SendMessage from './SendMessage'
-import {addmsgAPI,getmsgAPI} from '../api'
+import {addmsgAPI,getmsgAPI} from '../API.ts'
 import {useSelf} from '../store/selfStore'
 import {useCurrentChatUser} from '../store/currentChatUserStore' 
 import {selfMessage} from '../interface.ts'
@@ -79,7 +79,7 @@ export default function Message({socket}:any) {
       {
         messages.map(msg=>{
           return(
-            <div ref={scrollRef} key={uuidv4()} className='border-2 w-full '>
+            <div ref={scrollRef} key={uuidv4()} className='border-2 w-full'>
               <div className={`${msg['fromSelf']?'text-right':'text-left'}`}>
                 <p className ='text-[18px] font-bold'>{msg['message']}</p>
                 <span className='text-[13px] font-bold text-[#777]'>
