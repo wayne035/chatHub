@@ -45,9 +45,9 @@ export default function Chat() {
 
   return (
     <>
-      <Logout/>
-      <Users changeChat={chatChange}/>
+      <div className='hidden'><Logout/></div>
       {currentChatUser === undefined ? <Welcome /> : <Message socket={socket}/>}
+      <Users changeChat={chatChange}/>
     </>
   )
 }

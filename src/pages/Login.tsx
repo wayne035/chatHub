@@ -19,7 +19,6 @@ export default function Login() {
         username,password
       }).then(res=>{
         if(res.data.status === 'success'){
-          alert(res.data.message);
           navigate('/chat');
         }else{
           alert(res.data.message);
