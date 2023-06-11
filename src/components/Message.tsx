@@ -5,13 +5,16 @@ import {addmsgAPI,getmsgAPI} from '../API.ts'
 import {useSelf} from '../store/selfStore'
 import {useCurrentChatUser} from '../store/currentChatUserStore' 
 import {selfMessage} from '../interface.ts'
+import {GrLinkPrevious} from 'react-icons/gr'
 
 export default function Message({socket}:any) {
+
   const currentChatUser = useCurrentChatUser(s=>s.currentChatUser);
   const self = useSelf(s=>s.self);
   const [messages, setMessages] = useState<selfMessage[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [arrivalMsg,setArrivalMsg] = useState<selfMessage>();
+
   const sendMessage = (msg:string)=>{
     const currentTime = () =>{
       const time = new Date();
@@ -72,27 +75,46 @@ export default function Message({socket}:any) {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const exit = () =>{
+    location.reload()
+  }
+
+  const fromSelf = (value:boolean) =>{
+    return value ? 'justify-end':'justify-start'
+  }
+  const arrow = (value:boolean) =>{
+    return value ? 'border-l-[#dfc79c] right-[-14px]':'border-r-[#dfc79c] left-[-14px]'
+  }
+
   return (
-    <>
-      <div>{currentChatUser?.username}</div>
-      <div className='border-2 h-[500px] overflow-auto'>
-      {
-        messages.map(msg=>{
-          return(
-            <div ref={scrollRef} key={uuidv4()} className='border-2 w-full'>
-              <div className={`${msg['fromSelf']?'text-right':'text-left'}`}>
-                <p className ='text-[18px] font-bold'>{msg['message']}</p>
-                <span className='text-[13px] font-bold text-[#777]'>
-                  {msg['currentTime']}
-                </span>
+    <div className='fixed w-full h-[100vh] bg-white top-0 left-0'>
+        <div className='h-[10%] text-[24px] font-black flex justify-between p-3 items-center bg-blue text-white border-b-2 border-b-[#dfdeee]'>
+          {currentChatUser?.username}
+          <div onClick={exit} className='md:hidden leading-[30px] h-6 '>
+            <GrLinkPrevious/>
+          </div>
+        </div>
+      <div className='border-2 h-[82%] overflow-y-auto overflow-x-hidden border-[#b1afaf] bg-[#e3fdce]'>
+        {
+          messages.map(msg=>{
+            return(
+              <div ref={scrollRef} key={uuidv4()} className={`${fromSelf(msg['fromSelf'])} flex w-full`}>
+              <div className='relative'>
+                <div className='relative border-2 border-[#dbbd84] w-[170px] m-2 p-1 rounded-md break-words bg-[#feffb1] shadow-xl'>
+                    <p className =' font-bold'>{msg['message']}</p>
+                    <span className='text-[12px] font-bold text-[#777]'>
+                      {msg['currentTime']}
+                    </span>
+                  </div>
+                  <div className={`absolute border-t-4 border-b-4 border-[11px] border-b-transparent border-t-transparent top-[50%] translate-y-[-50%] ${arrow(msg['fromSelf'])}`}>
+                  </div>
+                </div>
               </div>
-              
-            </div>
-          )
-        })
-      }
+            )
+          })
+        }
       </div>
       <SendMessage sendMessage={sendMessage}/>
-    </>
+    </div>
   )
 }
