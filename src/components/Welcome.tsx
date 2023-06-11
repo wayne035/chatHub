@@ -5,7 +5,7 @@ export default function Welcome() {
   const self = useSelf(s=>s.self);
   
   return (
-    <div className='flex justify-between p-2 text-[22px] font-black items-center border-b-2 border-[#000] bg-black'>
+    <div className='flex justify-between p-2 text-[22px] font-black items-center bg-black '>
       <div className='flex'>
         <div className='pr-2 text-white'>
           歡迎回來!
