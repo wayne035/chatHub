@@ -88,7 +88,7 @@ export default function Message({socket}:any) {
 
   return (
     <div className='fixed w-full h-[100vh] bg-white top-0 left-0'>
-        <div className='h-[10%] text-[24px] font-black flex justify-between p-3 items-center bg-blue text-white border-b-2 border-b-[#dfdeee]'>
+        <div className='h-[8%] text-[24px] font-black flex justify-between p-3 items-center bg-blue text-white border-b-2 border-b-[#dfdeee]'>
           {currentChatUser?.username}
           <div onClick={exit} className='md:hidden leading-[30px] h-6 '>
             <GrLinkPrevious/>
@@ -114,7 +114,9 @@ export default function Message({socket}:any) {
           })
         }
       </div>
-      <SendMessage sendMessage={sendMessage}/>
+      <div className='h-[10%] p-2'>
+        <SendMessage sendMessage={sendMessage}/>
+      </div>  
     </div>
   )
 }
