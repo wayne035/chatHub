@@ -40,39 +40,60 @@ export default function Register() {
   }
 
   return (
-    <form onSubmit={submit}>
-      <input
-        type="text"
-        placeholder="使用者名稱"
-        name="username"
-        onChange={ChangeValue}
-        required
-      />
-      <input
-        type="email"
-        placeholder="E-mail"
-        name="email"
-        onChange={ChangeValue}
-        required
-      />
-      <input
-        type="password"
-        placeholder="密碼(需設置10碼以上)"
-        name="password"
-        onChange={ChangeValue}
-        required
-      />
-      <input
-        type="password"
-        placeholder="確認密碼"
-        name="confirmPassWord"
-        onChange={ChangeValue}
-        required
-      />
-      <button type="submit">建立使用者</button>
-      <span>
-        己經有帳戶了? <Link to="/login">登入</Link>
-      </span>
-    </form>
+    <div className='h-[100vh] pt-20 bg-gradient-to-b from-blue to-[#3f91d4]'>
+      <form onSubmit={submit}
+            className='m-auto flex flex-wrap w-[350px] p-4 border-[1px] rounded-[6px] shadow-2xl bg-[#fff]'
+      >
+        <div className='w-full flex justify-center text-[30px] text-center font-black my-[10px]'>
+          註冊
+          <div className='bg-blue text-[#fff] rounded-[5px] px-1'>
+            頁面
+          </div>
+        </div>
+        <input
+          className='w-full rounded-[3px] ring m-[14px] h-[40px] p-3 font-bold'
+          type="text"
+          placeholder="使用者名稱"
+          name="username"
+          onChange={ChangeValue}
+          required
+        />
+        <input
+          className='w-full rounded-[3px] ring m-[14px] h-[40px] p-3 font-bold'
+          type="email"
+          placeholder="E-mail"
+          name="email"
+          onChange={ChangeValue}
+          required
+        />
+        <input
+          className='w-full rounded-[3px] ring m-[14px] h-[40px] p-3 font-bold'
+          type="password"
+          placeholder="密碼(需設置10碼以上)"
+          name="password"
+          onChange={ChangeValue}
+          required
+        />
+        <input
+          className='w-full rounded-[3px] ring m-[14px] h-[40px] p-3 font-bold'
+          type="password"
+          placeholder="確認密碼"
+          name="confirmPassWord"
+          onChange={ChangeValue}
+          required
+        />
+        <button type="submit"
+                className='m-auto my-3 text-[24px] font-black border-[2px] border-blue px-4 py-1 rounded-[5px] hover:bg-btncolor hover:text-[#fff] duration-300 hover:border-[#185894]'
+        >
+          註冊
+        </button>
+        <span className='w-full m-2 text-center'>
+          己經有帳戶了? 
+          <Link to="/login" className='text-[#aaa] hover:text-[#000] ml-2'>
+            登入
+          </Link>
+        </span>
+      </form>
+    </div>
   )
 }
