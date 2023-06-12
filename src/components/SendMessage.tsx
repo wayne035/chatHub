@@ -23,8 +23,11 @@ export default function sendMessage({sendMessage}:SendMessageProps) {
     }
   }
 
-  const enter = (e: { key: string; }) =>{
-    if(e.key === "Enter") sendChat()
+  const enter = (e:any) =>{
+    if(e.key === "Enter"){
+      e?.preventDefault();
+      sendChat();
+    }
   }
 
   return (
@@ -42,7 +45,7 @@ export default function sendMessage({sendMessage}:SendMessageProps) {
                 onFocus={()=>setShowEmojiPicker(false)}
                 onChange={(e) => setMsg(e.target.value)}
                 value={msg}
-                className='resize-none border-2 p-1 w-[80%] h-full'
+                className='resize-none border-2 p-1 w-[80%] h-full overflow-hidden'
       />
       <div onClick={()=>setShowEmojiPicker(v=>!v)} 
            className='cursor-pointer text-[24px] w-[10%] p-2 text-center'>

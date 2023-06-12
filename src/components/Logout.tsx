@@ -12,7 +12,7 @@ export default function Logout() {
   }
   
   return (
-    <div onClick={logout} className='border-2 border-[#000] rounded-[5px] p-1 bg-white hover:border-blue hover:text-blue duration-500'>
+    <div onClick={logout} className='border-2 border-[#000] rounded-[5px] p-1 bg-white hover:border-blue hover:text-blue duration-500 cursor-pointer h-10 w-10'>
       <ImExit className='w-7 h-7 bg-[#fff] '/>
     </div>
   )

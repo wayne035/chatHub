@@ -19,7 +19,7 @@ export default function Register() {
   const submit = async(e: { preventDefault: () => void })=>{
     e.preventDefault();
     const { email, username, password,confirmPassWord} = data;
-    if(validation(password,confirmPassWord)){
+    if(validation(password,confirmPassWord,username)){
       await registerAPI({
         username,email,password
       }).then(res=>{
@@ -33,9 +33,10 @@ export default function Register() {
     }  
   }
 
-  const validation = (password: string ,confirmPassWord: string) =>{
+  const validation = (password: string ,confirmPassWord: string ,username:string) =>{
     if (password !== confirmPassWord) return alert('密碼確認不正確')
     if (password.length < 10) return alert('密碼需要10個字以上組成')
+    if (username.length >= 10) return alert('使用者名稱不要超過10個字拉')
     return true
   }
 

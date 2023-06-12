@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+}
+::-webkit-scrollbar{
+    background: #a2d2fa;
+    width: 10px;
+}
+::-webkit-scrollbar-thumb{ 
+    border-radius: 8px;
+    background: #2a50b8;
+}
 .circle{
     position: absolute;
     width: 350px;

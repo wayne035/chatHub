@@ -7,7 +7,7 @@ interface ChatUser{
 
 interface CurrentChatUser{
     currentChatUser: ChatUser | undefined,
-    setCurrentChatUser:(data:ChatUser)=>void
+    setCurrentChatUser:(data:ChatUser|undefined)=>void
 }
 
 export const useCurrentChatUser = create<CurrentChatUser>((set)=>({

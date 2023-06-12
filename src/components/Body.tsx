@@ -1,4 +1,4 @@
-import Canva from '../components/Canva'
+import Canva from './Canva'
 import Model from './Model'
 
 export default function Body() {

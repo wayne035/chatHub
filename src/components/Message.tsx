@@ -10,6 +10,7 @@ import {GrLinkPrevious} from 'react-icons/gr'
 export default function Message({socket}:any) {
 
   const currentChatUser = useCurrentChatUser(s=>s.currentChatUser);
+  const {setCurrentChatUser} = useCurrentChatUser();
   const self = useSelf(s=>s.self);
   const [messages, setMessages] = useState<selfMessage[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -76,7 +77,7 @@ export default function Message({socket}:any) {
   }, [messages]);
 
   const exit = () =>{
-    location.reload()
+    setCurrentChatUser(undefined)
   }
 
   const fromSelf = (value:boolean) =>{
@@ -87,20 +88,20 @@ export default function Message({socket}:any) {
   }
 
   return (
-    <div className='fixed w-full h-[100vh] bg-white top-0 left-0'>
-        <div className='h-[8%] text-[24px] font-black flex justify-between p-3 items-center bg-blue text-white border-b-2 border-b-[#dfdeee]'>
-          {currentChatUser?.username}
-          <div onClick={exit} className='md:hidden leading-[30px] h-6 '>
-            <GrLinkPrevious/>
-          </div>
+    <div className='fixed w-full h-[100vh] bg-white top-0 left-0 duration-500 md:static md:h-full'>
+      <div className='h-[8%] md:h-[10%] text-[24px] font-black flex justify-between p-3 items-center bg-blue text-white border-b-[#dfdeee]'>
+        {currentChatUser?.username}
+        <div onClick={exit} className='md:hidden leading-[30px] h-6 '>
+          <GrLinkPrevious/>
         </div>
-      <div className='border-2 h-[82%] overflow-y-auto overflow-x-hidden border-[#b1afaf] bg-[#e3fdce]'>
+      </div>
+      <div className='border-2 h-[82%] md:h-[80%] overflow-y-auto overflow-x-hidden border-[#b1afaf] bg-[#e3fdce]'>
         {
           messages.map(msg=>{
             return(
               <div ref={scrollRef} key={uuidv4()} className={`${fromSelf(msg['fromSelf'])} flex w-full`}>
-              <div className='relative'>
-                <div className='relative border-2 border-[#dbbd84] w-[170px] m-2 p-1 rounded-md break-words bg-[#feffb1] shadow-xl'>
+                <div className='relative'>
+                  <div className='relative border-2 border-[#dbbd84] w-[170px] m-2 p-1 rounded-md break-words bg-[#feffb1] shadow-xl'>
                     <p className =' font-bold'>{msg['message']}</p>
                     <span className='text-[12px] font-bold text-[#777]'>
                       {msg['currentTime']}
