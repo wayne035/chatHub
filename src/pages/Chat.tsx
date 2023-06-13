@@ -1,5 +1,5 @@
 import {useEffect,useRef} from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate,Link} from 'react-router-dom'
 import {server,getUsersAPI} from '../API'
 import {io,Socket} from 'socket.io-client'
 import {useSelf} from '../store/selfStore'
@@ -10,8 +10,6 @@ import Users from '../components/Users'
 import Welcome from '../components/Welcome'
 import Message from '../components/Message'
 import Logout from '../components/Logout'
-import Canva from '../components/Canva'
-import Model from '../components/Model'
 
 export default function Chat() {
   const self = useSelf(s=>s.self);
@@ -58,9 +56,11 @@ export default function Chat() {
         <div className='relative flex overflow-hidden flex-wrap w-[768px] lg:w-[1024px] h-[90%] bg-[#fff] m-auto rounded-lg shadow-xl'>
           <div className='w-full h-[80px] justify-between'>
             <Welcome />
-            <div className='absolute z-10 top-[20px] left-[35px] text-[27px]'>
+            <Link to='/'>
+              <div className='absolute z-10 top-[20px] left-[35px] text-[27px]'>
               😈 😁 🤢
-            </div>
+              </div>
+            </Link>
             <div className=' absolute z-10 top-[20px] right-[20px]'>
               <Logout/>
             </div>
@@ -72,13 +72,11 @@ export default function Chat() {
             {
               currentChatUser === undefined ? 
               (
-                <div className='hidden md:block h-full md:bg-[#a9faec] rounded-lg overflow-hidden border-2 border-[#28569b] shadow-2xl'>
-                  <p className='absolute top-[20%] lg:left-[40%] m-10 text-[40px] font-black text-[#3f4ea7]'>
+                <div className='select hidden md:flex h-full md:bg-[#fff] rounded-lg overflow-hidden border-2 border-[#28569b] shadow-2xl justify-center'>
+                  <p className='absolute top-[20%] lg:left-[40%] m-10 text-[40px] font-black text-[#fff]'>
                     選擇左邊的用戶聊天!!
                   </p>
-                  <Canva>
-                    <Model file='./model/redheadMan.glb' action='./action/pointer.fbx' xyz={{x:.2 , y:-.5 , z:1}} rotationY={-.5}/>
-                  </Canva>
+                  <img src='./talk.gif'/>
                 </div>
               )
               :

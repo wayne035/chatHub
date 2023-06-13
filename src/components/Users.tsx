@@ -12,16 +12,12 @@ export default function Users({changeChat}:ChangeChatUser) {
   }
 
   const userCurrentSelect = (idx:number) =>{
-    return idx === currentSelect ?'md:bg-blue border-[#3b28e7]':'md:bg-[#fff] '
+    return idx === currentSelect ?'md:bg-blue border-[#250fe6]':'md:bg-[#fff] '
   }
 
   const avatar = (name:string) =>{
-    const color = ['#CCBBFF','#9999FF','#FFCCCC','#FF77FF','#F4A460','#228B22','#008B8B','#008800','#FF5511','#C71585']
-    const bg = color[Math.floor(Math.random() * 10)]
     return (
-      <div className='flex justify-center items-center w-10 h-10 rounded-[50%] border-2  border-[#000] mr-4'
-           style={{ backgroundColor: bg }}
-      >
+      <div className='flex justify-center items-center w-10 h-10 rounded-[50%] border-2  border-[#000] mr-4 bg-[#a46dc4]'>
         {name.charAt(0).toUpperCase()}
       </div>
     )

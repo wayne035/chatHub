@@ -2,11 +2,12 @@ import {useState} from 'react'
 import {Link,useNavigate} from 'react-router-dom'
 import {loginAPI} from '../API.ts'
 import {LoginData,importLoginData} from '../interface.ts'
+import {useSelf} from '../store/selfStore.ts'
 
 export default function Login() {
   const [data,setData] = useState<LoginData>({username: "",password: ""});
   const navigate = useNavigate();
-
+  const {setLogin} = useSelf();
   const ChangeValue = (e:importLoginData) => {
     setData({ ...data, [e.target.name]: e.target.value });
   }
@@ -19,6 +20,7 @@ export default function Login() {
         username,password
       }).then(res=>{
         if(res.data.status === 'success'){
+          setLogin(true);
           navigate('/chat');
         }else{
           alert(res.data.message);

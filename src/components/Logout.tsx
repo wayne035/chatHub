@@ -1,13 +1,17 @@
 import { useNavigate } from 'react-router-dom'
 import {logoutAPI} from '../API'
 import {ImExit} from 'react-icons/im'
+import {useSelf} from '../store/selfStore.ts'
 
 export default function Logout() {
   const navigate = useNavigate();
+  const {setLogin} = useSelf();
+
   const logout = () =>{
     if(confirm('你確定要登出?'))
     logoutAPI().then(()=>{
-        navigate('/')
+        setLogin(false);
+        navigate('/');
     }).catch(err=>console.log(err.message));
   }
   

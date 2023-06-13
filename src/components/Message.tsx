@@ -91,7 +91,7 @@ export default function Message({socket}:any) {
     <div className='fixed w-full h-[100vh] bg-white top-0 left-0 duration-500 md:static md:h-full'>
       <div className='h-[8%] md:h-[10%] text-[24px] font-black flex justify-between p-3 items-center bg-blue text-white border-b-[#dfdeee]'>
         {currentChatUser?.username}
-        <div onClick={exit} className='md:hidden leading-[30px] h-6 '>
+        <div onClick={exit} className='md:hidden leading-[30px] h-6 cursor-pointer'>
           <GrLinkPrevious/>
         </div>
       </div>
