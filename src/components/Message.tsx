@@ -35,6 +35,7 @@ export default function Message({socket}:any) {
     })
 
     addmsgAPI({
+      token:localStorage.getItem('chatHubtoken'),
       from :self['id'],
       to:currentChatUser?._id,
       message:msg,
@@ -50,6 +51,7 @@ export default function Message({socket}:any) {
     async function getMsg(){
       if(currentChatUser){
         const res = await getmsgAPI({
+          token:localStorage.getItem('chatHubtoken'),
           from: self['id'],
           to:currentChatUser._id,
         })

@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom"
-import {useSelf} from '../store/selfStore.ts'
 
 export default function Header() {
-  const isLogin = useSelf(s=>s.isLogin);
-  const cookieKey = (document.cookie).split("=")[0]
 
   return (
     <header className='flex justify-between bg-[#000] h-[60px] text-[#fff] fixed w-full'>
@@ -15,7 +12,7 @@ export default function Header() {
       </h1>
       <nav className="h-full flex">
         {
-          isLogin || cookieKey? 
+          localStorage.getItem('chatHubtoken') ? 
           <Link to='/chat' 
                   className="h-full leading-[60px] text-[22px] md:text-[26px] font-black px-[8px] md:px-[25px] hover:bg-blue hover:text-[#eee] duration-500" 
           >

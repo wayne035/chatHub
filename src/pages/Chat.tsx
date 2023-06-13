@@ -21,7 +21,7 @@ export default function Chat() {
   const navigate = useNavigate();
 
   useEffect(()=>{
-    getUsersAPI({ withCredentials: true })
+    getUsersAPI({token:localStorage.getItem('chatHubtoken')})
     .then(res=>{
       if(res.data.status === 'fail'){
         navigate('/login')
