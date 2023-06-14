@@ -1,3 +1,4 @@
+import {ReactNode} from 'react'
 export interface LoginData{
     username: string,
     password: string,
@@ -34,4 +35,17 @@ export interface User{
 }
 export interface ChangeChatUser{
     changeChat:(v:User)=>void,
+}
+export interface ModelData{
+    file:string,
+    action:string,
+    xyz:{
+      x:number,
+      y:number,
+      z:number,
+    },
+    rotationY?:number,
+}
+export interface canvaProps {
+    children: ReactNode,
 }

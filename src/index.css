@@ -66,16 +66,6 @@
 .emoji:nth-child(5){animation-delay: 2.8s;}
 .emoji:nth-child(6){animation-delay: 1.8s;}
 .emoji:nth-child(7){animation-delay: 3.1s;}
-
-.bigemoji{
-    opacity: 0;
-    animation: emojitransform 4s infinite;
-}
-.bigemoji:nth-child(1){animation-delay:2s;}
-@keyframes emojitransform {
-    0%,100%{opacity:0;}
-    50%{opacity:1;}
-}
 .select{
     color: transparent;
     -webkit-text-stroke:  1.5px #5a74e7;
