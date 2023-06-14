@@ -8,6 +8,7 @@ export default function Logout() {
   const logout = () =>{
     if(confirm('你確定要登出?'))
     logoutAPI().then(()=>{
+        localStorage.removeItem('chatHubtoken');
         navigate('/');
     }).catch(err=>console.log(err.message));
   }
