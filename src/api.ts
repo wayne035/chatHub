@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 axios.defaults.withCredentials = true;
-export const server = 'http://localhost:8000';
+export const server = 'https://chat-server-xld3.onrender.com';
 //type
 const auth = server + '/api/auth';
 const userdata = server + '/api/userdata';
