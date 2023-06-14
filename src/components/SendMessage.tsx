@@ -36,7 +36,7 @@ export default function sendMessage({sendMessage}:SendMessageProps) {
     >
       {
         showEmojiPicker && 
-        <div className='absolute bottom-[10%] left-1/2 translate-x-[-50%]'>
+        <div className='absolute bottom-[11%] md:bottom-[13%] right-[10px] md:right-[3%]'>
           <Picker onEmojiClick={EmojiClick}/>
         </div>
       }
